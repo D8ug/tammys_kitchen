@@ -8,3 +8,9 @@ As of now, the project only got the activities that it will need setted up and e
 I've got a custom recyclerview handler and an item for it that is used for the menu.
 
 TODO: Make it so in the admin menu the admin will be able to go into an intent where they can edit the menu after linking the menu with firebase live database.
+
+
+  Version - 0.1.1.3
+  - Added a dummy list to preview it
+  - Fixed a few bugs along the way
+  - Added a go to menu button on the main menu
