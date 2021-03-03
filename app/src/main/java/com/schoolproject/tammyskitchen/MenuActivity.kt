@@ -2,6 +2,8 @@ package com.schoolproject.tammyskitchen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
 
@@ -9,7 +11,11 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+        val testList = generateDummyList(100)
 
+        recycler_view.adapter = MenuAdapter(testList)
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.setHasFixedSize(true)
 
     }
 
@@ -25,7 +31,8 @@ class MenuActivity : AppCompatActivity() {
                 else -> R.drawable.salad
 
             }
-
+            val item = MenuItem (drawable, "פריט $i", "תיאור פריט $i")
+            list += item
         }
 
         return list
