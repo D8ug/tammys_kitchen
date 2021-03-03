@@ -41,5 +41,10 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        menu_button.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
