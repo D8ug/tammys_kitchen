@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_menu.*
+import kotlin.random.Random
 
 class MenuActivity : AppCompatActivity() {
 
@@ -31,7 +32,9 @@ class MenuActivity : AppCompatActivity() {
                 else -> R.drawable.salad
 
             }
-            val item = MenuItem (drawable, "פריט $i", "תיאור פריט $i")
+            val rndPrice = Random.nextInt(35,100)
+
+            val item = MenuItem (drawable, "פריט $i", "תיאור פריט $i", rndPrice)
             list += item
         }
 
