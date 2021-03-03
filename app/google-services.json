@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "153419249314",
+    "project_id": "tammy-s-kitchen",
+    "storage_bucket": "tammy-s-kitchen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153419249314:android:84e40563b948bd2f3e09fb",
+        "android_client_info": {
+          "package_name": "com.example.tammysapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153419249314-miu0h1k9hqleout6d4400se2p780bdmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tammysapp",
+            "certificate_hash": "d80d7636af282fe0e6bc5ee86e66fc70297bfe50"
+          }
+        },
+        {
+          "client_id": "153419249314-2ld584auedir0kqfanqvbl7beosnv91d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzmXE2HD6toAbO4Fcco2_wCMbnzbZ08Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153419249314-2ld584auedir0kqfanqvbl7beosnv91d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153419249314:android:b144489ec52606713e09fb",
+        "android_client_info": {
+          "package_name": "com.schoolproject.tammysapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153419249314-7aklmb7gbquck5s2ojohcg2cfmru0pb4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schoolproject.tammysapp",
+            "certificate_hash": "d80d7636af282fe0e6bc5ee86e66fc70297bfe50"
+          }
+        },
+        {
+          "client_id": "153419249314-2ld584auedir0kqfanqvbl7beosnv91d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzmXE2HD6toAbO4Fcco2_wCMbnzbZ08Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153419249314-2ld584auedir0kqfanqvbl7beosnv91d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153419249314:android:613334c0ecae13333e09fb",
+        "android_client_info": {
+          "package_name": "com.schoolproject.tammyskitchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153419249314-48i1olr31khha0ihehut08dn6v08tm06.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.schoolproject.tammyskitchen",
+            "certificate_hash": "d80d7636af282fe0e6bc5ee86e66fc70297bfe50"
+          }
+        },
+        {
+          "client_id": "153419249314-2ld584auedir0kqfanqvbl7beosnv91d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzmXE2HD6toAbO4Fcco2_wCMbnzbZ08Io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153419249314-2ld584auedir0kqfanqvbl7beosnv91d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

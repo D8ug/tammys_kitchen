@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Tammys Kitchen</string>
+    <string name="admin_email">admin@tammy.kitchen</string>
+    <string name="guest_email">guest@tammy.kitchen</string>
+    <string name="guest_password">12345678</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+</resources>
