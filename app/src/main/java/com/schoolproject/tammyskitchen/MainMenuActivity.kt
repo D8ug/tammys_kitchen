@@ -24,7 +24,7 @@ class MainMenuActivity : AppCompatActivity() {
             finish()
         }
 
-        if (auth == null){
+        if (auth.currentUser == null){
             // if guest is logged in - TODO: add usability for guests
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
