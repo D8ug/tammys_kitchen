@@ -1,9 +1,14 @@
 package com.schoolproject.tammyskitchen
 
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_menu.*
@@ -12,11 +17,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.menu_item.view.*
 
 
 class MenuActivity : AppCompatActivity() {
 
-    private lateinit var mStorageRef: StorageReference
+    private lateinit var mStorageRef: DatabaseReference
     var storage = FirebaseStorage.getInstance()
 
 
@@ -24,13 +34,15 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        mStorageRef = FirebaseStorage.getInstance().getReference()
+        mStorageRef = FirebaseDatabase.getInstance().reference.child("menu_items")
         val list = ArrayList<LiveMenuItem>()
         val lemonImageURL = "https://firebasestorage.googleapis.com/v0/b/tammy-s-kitchen.appspot.com/o/images%2Flemon.png?alt=media&token=a1f173f7-5508-4dbf-8612-ed804767f63a"
-        val item = LiveMenuItem(lemonImageURL, "name of lemon", "description of lemon", 56)
 
-        list += item
-        recycler_view.adapter = LiveMenuAdapter(list)
+        val info = FirebaseRecyclerOptions.Builder<LiveMenuItem>().setQuery(mStorageRef, LiveMenuItem::class.java).build()
+        val testref = storage.reference.child("images/")
+        var test = testref.listAll()
+        
+
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.setHasFixedSize(true)
         /* - used for testing my list
@@ -78,4 +90,11 @@ class MenuActivity : AppCompatActivity() {
 
         return list
     }
+}
+
+class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    val imageView: ImageView = itemView.image_view
+    val itemName: TextView = itemView.item_name_text_view
+    val itemDescription: TextView = itemView.description_text_view
+    val itemPrice: TextView = itemView.price_text_view
 }
