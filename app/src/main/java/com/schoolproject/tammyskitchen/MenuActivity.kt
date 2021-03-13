@@ -19,55 +19,57 @@ import kotlinx.coroutines.withContext
 import kotlin.random.Random
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.menu_item.view.*
 
 
 class MenuActivity : AppCompatActivity() {
 
-    private lateinit var mStorageRef: DatabaseReference
-    var storage = FirebaseStorage.getInstance()
+
+    private lateinit var mDatabaseRef: DatabaseReference
+    private lateinit var mStorageReference: StorageReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        mStorageRef = FirebaseDatabase.getInstance().reference.child("menu_items")
-        val list = ArrayList<LiveMenuItem>()
-        val lemonImageURL = "https://firebasestorage.googleapis.com/v0/b/tammy-s-kitchen.appspot.com/o/images%2Flemon.png?alt=media&token=a1f173f7-5508-4dbf-8612-ed804767f63a"
+        mDatabaseRef = FirebaseDatabase.getInstance().reference
+        mStorageReference = FirebaseStorage.getInstance().reference
 
-        val info = FirebaseRecyclerOptions.Builder<LiveMenuItem>().setQuery(mStorageRef, LiveMenuItem::class.java).build()
-        val testref = storage.reference.child("images/")
-        var test = testref.listAll()
-        
+        /*testButton.setOnClickListener {
+            val testImage = "https://images-prod.healthline.com/hlcmsresource/images/AN_images/lemon-health-benefits-1296x728-feature.jpg"
+            mDatabaseRef.child(Random.nextInt(1000).toString()).setValue(LiveMenuItem(testImage, "test", "test", 40))
+        }*/
 
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.setHasFixedSize(true)
-        /* - used for testing my list
-        val testList = generateDummyList(100)
-
-        recycler_view.adapter = MenuAdapter(testList)
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.setHasFixedSize(true)
-
-         */
-
-    }
-
-    private fun listFiles() = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            var storageRef = storage.reference.child("images")
+        var getData = object : ValueEventListener {
 
 
+            override fun onCancelled(error: DatabaseError) {
+                TODO("NOT IMPLEMENTED YET (Don't think there's a reason to implement anyways tho)")
+            }
 
-        }
-        catch (e: Exception){
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@MenuActivity, e.message, Toast.LENGTH_LONG).show()
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                val list = ArrayList<LiveMenuItem>()
+                for (i in snapshot.children){
+                    var itemName = i.child("itemName").value.toString()
+                    var itemDescription = i.child("itemDescription").value.toString()
+                    var price = i.child("price").value.toString().toInt()
+                    var imageURL = i.child("imageURL").value.toString()
+                    list += LiveMenuItem(imageURL, itemName, itemDescription, price)
+                }
+                val adapter = LiveMenuAdapter(list)
+                recycler_view.adapter = adapter
+                recycler_view.layoutManager = LinearLayoutManager(this@MenuActivity)
+                recycler_view.setHasFixedSize(true)
+
             }
         }
+        mDatabaseRef.addValueEventListener(getData)
+        mDatabaseRef.addListenerForSingleValueEvent(getData)
+
     }
 
     private fun generateDummyList(size: Int) : List<MenuItem> {
@@ -92,9 +94,3 @@ class MenuActivity : AppCompatActivity() {
     }
 }
 
-class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-    val imageView: ImageView = itemView.image_view
-    val itemName: TextView = itemView.item_name_text_view
-    val itemDescription: TextView = itemView.description_text_view
-    val itemPrice: TextView = itemView.price_text_view
-}

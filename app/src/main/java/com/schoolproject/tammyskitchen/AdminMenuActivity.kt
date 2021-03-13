@@ -22,5 +22,16 @@ class AdminMenuActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+
+        menuButton.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
+
+        editMenuButton.setOnClickListener {
+            val intent = Intent(this, AddNewMenuItemsActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

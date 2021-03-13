@@ -1,5 +1,6 @@
 package com.schoolproject.tammyskitchen
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,10 @@ class LiveMenuAdapter(private val menuItemsList: List<LiveMenuItem>) : RecyclerV
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.menu_item, parent, false)
         // creates an itemView that is on the format of LiveMenuItem, then calls ViewHolder to link the
         // items on the itemView with values and returns the created view holder
+        itemView.setOnClickListener{
+            Log.println(Log.ERROR, "Button", "worked")
+            //CustomDialogClass(this).show()
+        }
         return ViewHolder(itemView)
     }
 
@@ -39,4 +44,5 @@ class LiveMenuAdapter(private val menuItemsList: List<LiveMenuItem>) : RecyclerV
         val itemDescription: TextView = itemView.description_text_view
         val itemPrice: TextView = itemView.price_text_view
     }
+
 }
