@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,6 +70,9 @@ class MenuActivity : AppCompatActivity() {
         }
         mDatabaseRef.addValueEventListener(getData)
         mDatabaseRef.addListenerForSingleValueEvent(getData)
+
+
+
 
     }
 
