@@ -35,7 +35,7 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        mDatabaseRef = FirebaseDatabase.getInstance().reference
+        mDatabaseRef = FirebaseDatabase.getInstance().reference.child("menu-items")
         mStorageReference = FirebaseStorage.getInstance().reference
 
         /*testButton.setOnClickListener {
@@ -43,6 +43,7 @@ class MenuActivity : AppCompatActivity() {
             mDatabaseRef.child(Random.nextInt(1000).toString()).setValue(LiveMenuItem(testImage, "test", "test", 40))
         }*/
 
+        // This function is used to get the data from the database
         var getData = object : ValueEventListener {
 
 
@@ -59,7 +60,8 @@ class MenuActivity : AppCompatActivity() {
                     var itemDescription = i.child("itemDescription").value.toString()
                     var price = i.child("price").value.toString().toInt()
                     var imageURL = i.child("imageURL").value.toString()
-                    list += LiveMenuItem(imageURL, itemName, itemDescription, price)
+                    var itemID = i.child("itemID").value.toString()
+                    list += LiveMenuItem(imageURL, itemName, itemDescription, price, itemID)
                 }
                 val adapter = LiveMenuAdapter(list)
                 recycler_view.adapter = adapter
@@ -71,11 +73,9 @@ class MenuActivity : AppCompatActivity() {
         mDatabaseRef.addValueEventListener(getData)
         mDatabaseRef.addListenerForSingleValueEvent(getData)
 
-
-
-
     }
 
+    // In case a dummy list is needed for testing, this will create a recyclerview list to use to test on our menu.
     private fun generateDummyList(size: Int) : List<MenuItem> {
         val list = ArrayList<MenuItem>()
 

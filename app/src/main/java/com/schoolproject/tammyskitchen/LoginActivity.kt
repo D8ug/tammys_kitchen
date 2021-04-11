@@ -127,7 +127,7 @@ class LoginActivity() : AppCompatActivity() {
             return
         }
         val intent: Intent
-        if (auth.currentUser?.email == resources.getString(R.string.admin_email))
+        if (auth.currentUser?.uid == resources.getString(R.string.admin_UID))
             intent = Intent(this, AdminMenuActivity::class.java)
         else
             intent = Intent(this, MainMenuActivity::class.java)

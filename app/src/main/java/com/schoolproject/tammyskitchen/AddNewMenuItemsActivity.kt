@@ -36,7 +36,7 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
 
         progressBar.visibility = ProgressBar.INVISIBLE
 
-        if (auth.currentUser.email != resources.getString(R.string.admin_email)) finish()
+        if (auth.currentUser?.uid != resources.getString(R.string.admin_UID)) finish()
 
         previewImageView.setOnClickListener {
             val intent = Intent()
@@ -74,8 +74,8 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
             Toast.makeText(this, "added item to menu!", Toast.LENGTH_SHORT).show()
 
             itemReference.downloadUrl.addOnSuccessListener {
-                val newMenuItem = LiveMenuItem(it.toString() , nameEditText.text.toString(), descriptionEditText.text.toString(), priceEditText.text.toString().toInt())
-                mDatabaseReference.child(currentFileID).setValue(newMenuItem)
+                val newMenuItem = LiveMenuItem(it.toString(), nameEditText.text.toString(), descriptionEditText.text.toString(), priceEditText.text.toString().toInt(), currentFileID)
+                mDatabaseReference.child("menu-items").child(currentFileID).setValue(newMenuItem)
             }
 
 

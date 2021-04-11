@@ -29,7 +29,7 @@ class MainMenuActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-        else if (auth.currentUser?.email == resources.getString(R.string.admin_email)) {
+        else if (auth.currentUser?.uid == resources.getString(R.string.admin_UID)) {
             // if admin is logged in, intent to the admin menu
             startActivity(Intent(this, AdminMenuActivity::class.java))
             finish()

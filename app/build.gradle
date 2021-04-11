@@ -46,7 +46,6 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     //firebase UI
-    implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
     implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
     implementation 'com.firebaseui:firebase-ui-database:7.1.1'
 

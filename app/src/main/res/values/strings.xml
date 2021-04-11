@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Tammys Kitchen</string>
-    <string name="admin_email">admin@tammy.kitchen</string>
+    <string name="app_name">המטבח של תמי</string>
+    <string name="admin_UID">6jd8zp2kJaPi2AU7MHWDE8iATju1</string>
     <string name="guest_email">guest@tammy.kitchen</string>
+    <string name="guest_UID">q7xnFtCPKEMzTYM5Og6RRegJdkc2</string>
     <string name="guest_password">12345678</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>

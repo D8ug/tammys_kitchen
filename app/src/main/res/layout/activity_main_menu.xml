@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity">
 
+    <TextView
+        android:id="@+id/titleTextView5"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:background="#EF5350"
+        android:text="המטבח של תמי"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#0C0910"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
