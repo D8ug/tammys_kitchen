@@ -30,7 +30,7 @@ class AdminMenuActivity : AppCompatActivity() {
         }
 
         editMenuButton.setOnClickListener {
-            val intent = Intent(this, AddNewMenuItemsActivity::class.java)
+            val intent = Intent(this, EditMenuActivity::class.java)
             startActivity(intent)
         }
     }

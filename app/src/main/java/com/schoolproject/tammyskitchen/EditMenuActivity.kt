@@ -1,5 +1,6 @@
 package com.schoolproject.tammyskitchen
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,14 @@ class EditMenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_menu)
+
+
+        addItemButton.setOnClickListener {
+
+            val intent = Intent(this, AddNewMenuItemsActivity::class.java)
+            startActivity(intent)
+        }
+
 
         // sets the references for the firebase storage and database
         mDatabaseRef = FirebaseDatabase.getInstance().reference.child("menu-items")

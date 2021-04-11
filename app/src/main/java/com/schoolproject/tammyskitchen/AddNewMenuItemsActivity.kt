@@ -76,6 +76,7 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
             itemReference.downloadUrl.addOnSuccessListener {
                 val newMenuItem = LiveMenuItem(it.toString(), nameEditText.text.toString(), descriptionEditText.text.toString(), priceEditText.text.toString().toInt(), currentFileID)
                 mDatabaseReference.child("menu-items").child(currentFileID).setValue(newMenuItem)
+                finish()
             }
 
 
