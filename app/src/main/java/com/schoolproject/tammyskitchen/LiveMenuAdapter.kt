@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -47,7 +46,7 @@ class LiveMenuAdapter(private val menuItemsList: List<LiveMenuItem>) : RecyclerV
             if (FirebaseAuth.getInstance().uid == "6jd8zp2kJaPi2AU7MHWDE8iATju1") {
                 view.deleteItemButton.visibility = Button.VISIBLE
                 view.deleteItemButton.setOnClickListener {
-                    deleteCurrentItem(it)
+                    deleteCurrentItem(itemView.itemID.text.toString())
                 }
             }
 
@@ -89,10 +88,10 @@ class LiveMenuAdapter(private val menuItemsList: List<LiveMenuItem>) : RecyclerV
         val itemID: TextView = itemView.itemID
     }
 
-    fun deleteCurrentItem(view: View) {
+    private fun deleteCurrentItem(itemID: String) {
         Log.e("debug","entered the deleteCurrentItem() function")
 
-        mDatabaseRef = FirebaseDatabase.getInstance().reference.child("menu-items").child(this.menuItemsList[0].itemID)
+        mDatabaseRef = FirebaseDatabase.getInstance().reference.child("menu-items").child(itemID)
         mDatabaseRef.removeValue()
 
     }
