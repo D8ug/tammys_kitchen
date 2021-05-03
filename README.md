@@ -1,5 +1,8 @@
 # tammys_kitchen
 
+Version 0.1.5.1
+Commited in 4/11/21
+ - Added the EditMenuActivity before entering the AddNewItemAvitivity for admins.
 
 Version 0.1.5
 Commited in 4/11/21
