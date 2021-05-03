@@ -33,5 +33,15 @@ class AdminMenuActivity : AppCompatActivity() {
             val intent = Intent(this, EditMenuActivity::class.java)
             startActivity(intent)
         }
+
+        intentToNewExpenseButton.setOnClickListener {
+            val intent = Intent(this, NewExpenseActivity::class.java)
+            startActivity(intent)
+        }
+
+        intentToSummaryButton.setOnClickListener {
+            val intent = Intent(this, SummaryActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
