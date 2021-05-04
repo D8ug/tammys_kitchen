@@ -3,6 +3,8 @@ package com.schoolproject.tammyskitchen
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -35,7 +37,9 @@ class EditMenuActivity : AppCompatActivity() {
 
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("NOT IMPLEMENTED YET (Don't think there's a reason to implement anyways tho)")
+                Toast.makeText(this@EditMenuActivity, "An issue has occurred when connecting to the database, please check your internet and try again.", Toast.LENGTH_LONG).show()
+                Log.e("Error", "DatabaseError", error.toException())
+                finish()
             }
 
 

@@ -1,6 +1,7 @@
 package com.schoolproject.tammyskitchen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -48,7 +49,9 @@ class MenuActivity : AppCompatActivity() {
 
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("NOT IMPLEMENTED YET (Don't think there's a reason to implement anyways tho)")
+                Toast.makeText(this@MenuActivity, "An issue has occurred when connecting to the database, please check your internet and try again.", Toast.LENGTH_LONG).show()
+                Log.e("Error", "DatabaseError", error.toException())
+                finish()
             }
 
 
