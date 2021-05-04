@@ -18,7 +18,7 @@ class NewExpenseActivity : AppCompatActivity() {
         mDatabaseReference = FirebaseDatabase.getInstance().reference.child(resources.getString(R.string.expenses_path))
 
         newExpenseButton.setOnClickListener {
-            val errorToast = Toast.makeText(this, "An error has occured", Toast.LENGTH_SHORT)
+            val errorToast = Toast.makeText(this, "An error has occurred", Toast.LENGTH_SHORT)
             if (expenseAmountEditText.text.toString().toDoubleOrNull() == null) {
                 errorToast.show()
                 return@setOnClickListener
@@ -28,12 +28,15 @@ class NewExpenseActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val UID = createUID()
-            val newExpense : IncomeItem = IncomeItem(expenseAmountEditText.text.toString().toDouble(),
+            val newExpense : IncomeItem = IncomeItem(expenseAmountEditText.text.toString().toDouble() * -1,
                                                      expenseNameEditText.text.toString(),
                                                      expenseDescriptionEditText.text.toString(),
                                                      UID,
                                                      expenseDetailsEditText.text.toString())
-            mDatabaseReference.child(UID).setValue(newExpense)
+            mDatabaseReference.child(UID).setValue(newExpense).addOnSuccessListener {
+                Toast.makeText(this,"Successfully added the new expense!", Toast.LENGTH_SHORT).show()
+                finish()
+            }.addOnCanceledListener { errorToast.show() }
         }
 
     }

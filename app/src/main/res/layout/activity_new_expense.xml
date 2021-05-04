@@ -57,7 +57,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="סכום"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/newExpenseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

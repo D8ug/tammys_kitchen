@@ -34,7 +34,7 @@ class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerVi
             holder.incomeValue.setTextColor(Color.GREEN)
         }
         else {
-            holder.incomeValue.text = "-${currentItem.income}₪"
+            holder.incomeValue.text = "${currentItem.income}₪"
             holder.incomeValue.setTextColor(Color.RED)
         }
     }

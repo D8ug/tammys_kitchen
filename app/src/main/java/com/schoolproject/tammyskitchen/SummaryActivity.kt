@@ -26,20 +26,28 @@ class SummaryActivity : AppCompatActivity() {
 
 
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                var totalSum = 0.0
+                var posSum = 0.0
+                var negSum = 0.0
                 val list = ArrayList<IncomeItem>()
                 for (i in snapshot.children){
                     var name = i.child("name").value.toString()
                     var description = i.child("description").value.toString()
-                    var income = i.child("price").value.toString().toDouble()
+                    var income = i.child("income").value.toString().toDouble()
                     var UID = i.child("UID").value.toString()
                     var details = i.child("details").value.toString()
                     list += IncomeItem(income, name, description, UID, details)
+                    totalSum += income
+                    if (income > 0) posSum += income
+                    else negSum += income
                 }
                 val adapter = IncomeListAdapter(list)
                 expensesRecyclerView.adapter = adapter
                 expensesRecyclerView.layoutManager = LinearLayoutManager(this@SummaryActivity)
                 expensesRecyclerView.setHasFixedSize(true)
+                sumTotalTextView.text = totalSum.toString() + "₪"
+                negSumTextView.text = negSum.toString() + "₪"
+                posSumTextView.text = posSum.toString() + "₪"
             }
         }
         databaseReference.addValueEventListener(getData)
