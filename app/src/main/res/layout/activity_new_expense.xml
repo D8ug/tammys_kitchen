@@ -28,26 +28,28 @@
         android:ems="10"
         android:hint="שם חברה"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/expenseDescriptionEditText"
+        app:layout_constraintBottom_toTopOf="@+id/expenseDescriptionSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/expenseTitleTextView"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <EditText
-        android:id="@+id/expenseDescriptionEditText"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/expenseDescriptionSpinner"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:contextClickable="false"
         android:ems="10"
+        android:entries="@array/expenses_titles"
         android:hint="לא חובה - תיאור"
         android:inputType="textPersonName"
         android:textDirection="rtl"
         app:layout_constraintBottom_toTopOf="@+id/expenseDetailsEditText"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/expenseNameEditText"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/expenseNameEditText"
         app:layout_constraintTop_toBottomOf="@+id/expenseNameEditText" />
 
     <EditText
@@ -89,5 +91,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expenseDescriptionEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/expenseDescriptionSpinner" />
+
+    <ProgressBar
+        android:id="@+id/expenseProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

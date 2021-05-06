@@ -52,6 +52,7 @@ class MenuActivity : AppCompatActivity() {
                 Toast.makeText(this@MenuActivity, "An issue has occurred when connecting to the database, please check your internet and try again.", Toast.LENGTH_LONG).show()
                 Log.e("Error", "DatabaseError", error.toException())
                 finish()
+                
             }
 
 
