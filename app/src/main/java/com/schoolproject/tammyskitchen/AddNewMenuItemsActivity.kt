@@ -38,6 +38,11 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
 
         if (auth.currentUser?.uid != resources.getString(R.string.admin_UID)) finish()
 
+
+        // when the image is clicked, the user can then load an image from his gallery to the activity
+        // the preview image then changes to the image that was loaded from the admin's phone - allowing us to
+        // take that image later when the admin wants to add this item to the menu and pulling that image from this
+        // ImageView and uploading what's there
         previewImageView.setOnClickListener {
             val intent = Intent()
             intent.setAction(Intent.ACTION_GET_CONTENT)
@@ -45,6 +50,7 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
             startActivityForResult(intent, mRequestCode)
         }
 
+        // Upload item button will call the uploadDataToDatabase function and it will handle uploading the data from there
         uploadButton.setOnClickListener {
             uploadDataToDatabase()
         }
@@ -64,18 +70,18 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
             return
         }
         val currentFileID = System.currentTimeMillis().toString()
-        val fileIDWithExtension = currentFileID + "." + getFileExtension(imageUri)
+        val imageNameWithExtension = currentFileID + "." + getFileExtension(imageUri)
 
-        val itemReference =  mStorageReference.child(fileIDWithExtension!!)
+        val itemReference =  mStorageReference.child(imageNameWithExtension!!)
         itemReference.putFile(imageUri).addOnSuccessListener {
             // When the image is successfully uploaded:
 
             progressBar.visibility = ProgressBar.INVISIBLE
-            Toast.makeText(this, "added item to menu!", Toast.LENGTH_SHORT).show()
 
             itemReference.downloadUrl.addOnSuccessListener {
                 val newMenuItem = LiveMenuItem(it.toString(), nameEditText.text.toString(), descriptionEditText.text.toString(), priceEditText.text.toString().toInt(), currentFileID)
                 mDatabaseReference.child("menu-items").child(currentFileID).setValue(newMenuItem)
+                Toast.makeText(this, "added item to menu!", Toast.LENGTH_SHORT).show()
                 finish()
             }
 
@@ -103,12 +109,15 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        // for when we are getting a result from the get image from gallery intent
         if (requestCode == mRequestCode && resultCode == Activity.RESULT_OK && data != null){
             imageUri = data.data!!
             previewImageView.setImageURI(imageUri)
         }
     }
 
+    // gets an uri and returns the file extension of the image (i.e. jpg, png etc.)
     private fun getFileExtension (uri: Uri) : String? {
         val cr: ContentResolver = contentResolver
         val mime: MimeTypeMap = MimeTypeMap.getSingleton()

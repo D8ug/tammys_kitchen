@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.activity_summary.*
+import java.text.DecimalFormat
 
 class SummaryActivity : AppCompatActivity() {
 
@@ -38,7 +39,7 @@ class SummaryActivity : AppCompatActivity() {
                     var name = i.child("name").value.toString()
                     var description = i.child("description").value.toString()
                     var income = i.child("income").value.toString().toDouble()
-                    var UID = i.child("UID").value.toString()
+                    var UID = i.child("uid").value.toString()
                     var details = i.child("details").value.toString()
                     list += IncomeItem(income, name, description, UID, details)
                     totalSum += income
@@ -49,9 +50,14 @@ class SummaryActivity : AppCompatActivity() {
                 expensesRecyclerView.adapter = adapter
                 expensesRecyclerView.layoutManager = LinearLayoutManager(this@SummaryActivity)
                 expensesRecyclerView.setHasFixedSize(true)
-                sumTotalTextView.text = totalSum.toString() + "₪"
-                negSumTextView.text = negSum.toString() + "₪"
-                posSumTextView.text = posSum.toString() + "₪"
+                val currencyFormat = DecimalFormat("#,##0.##")
+
+                var formattedSum: String = currencyFormat.format(totalSum)
+                sumTotalTextView.text = formattedSum + "₪"
+                formattedSum = currencyFormat.format(negSum)
+                negSumTextView.text = formattedSum + "₪"
+                formattedSum = currencyFormat.format(posSum)
+                posSumTextView.text = formattedSum + "₪"
             }
         }
         databaseReference.addValueEventListener(getData)

@@ -1,21 +1,21 @@
 package com.schoolproject.tammyskitchen
 
-import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.expense_item_dialog.view.*
 import kotlinx.android.synthetic.main.income_item.view.*
+import java.text.DecimalFormat
 
 private lateinit var mDatabaseRef: DatabaseReference
+
 
 class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerView.Adapter<IncomeListAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IncomeListAdapter.ViewHolder {
@@ -33,6 +33,10 @@ class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerVi
             view.priceTextView.text = itemView.income_text_view.text
 
 
+            view.deleteItemButton.setOnClickListener {
+                deleteExpenseWithID(itemView.incomeUID.text.toString())
+            }
+
 
             // creates the builder for the dialog
             val builder = AlertDialog.Builder(it.context)
@@ -49,19 +53,30 @@ class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerVi
         return ViewHolder(itemView)
     }
 
+    private fun deleteExpenseWithID(uid: String) {
+        Log.e("debug","entered the deleteCurrentItem() function \ntrying to delete item uid $uid")
+
+        mDatabaseRef = FirebaseDatabase.getInstance().reference.child("expenses-and-incomes").child(uid)
+        Log.d("path", mDatabaseRef.path.toString())
+        mDatabaseRef.removeValue()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = incomeItems[position]
 
         holder.incomeName.text = currentItem.name
         holder.incomeDescription.text = currentItem.description
-        holder.incomeUID.text = currentItem.UID
+        holder.incomeUID.text = currentItem.uid
         holder.incomeDetails.text = currentItem.details
+        val currencyFormat = DecimalFormat("#,##0.##")
+
+        val formattedIncome: String = currencyFormat.format(currentItem.income)
         if (currentItem.income >= 0) {
-            holder.incomeValue.text = "+${currentItem.income}₪"
+            holder.incomeValue.text = "+${formattedIncome}₪"
             holder.incomeValue.setTextColor(Color.GREEN)
         }
         else {
-            holder.incomeValue.text = "${currentItem.income}₪"
+            holder.incomeValue.text = "${formattedIncome}₪"
             holder.incomeValue.setTextColor(Color.RED)
         }
     }
@@ -74,7 +89,7 @@ class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerVi
         val incomeValue: TextView = itemView.income_text_view
         val incomeName: TextView = itemView.item_name_text_view
         val incomeDescription: TextView = itemView.income_description_text_view
-        val incomeUID: TextView = itemView.UID
+        val incomeUID: TextView = itemView.incomeUID
         val incomeDetails: TextView = itemView.incomeDetailsTextView
     }
 }
