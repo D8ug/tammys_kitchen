@@ -1,5 +1,6 @@
 package com.schoolproject.tammyskitchen
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +21,7 @@ class SummaryActivity : AppCompatActivity() {
 
         databaseReference = FirebaseDatabase.getInstance().reference.child(resources.getString(R.string.expenses_path))
 
-        var getData = object : ValueEventListener {
+        val getData = object : ValueEventListener {
 
 
             override fun onCancelled(error: DatabaseError) {
@@ -30,17 +31,18 @@ class SummaryActivity : AppCompatActivity() {
             }
 
 
+            @SuppressLint("SetTextI18n")
             override fun onDataChange(snapshot: DataSnapshot) {
                 var totalSum = 0.0
                 var posSum = 0.0
                 var negSum = 0.0
                 val list = ArrayList<IncomeItem>()
                 for (i in snapshot.children){
-                    var name = i.child("name").value.toString()
-                    var description = i.child("description").value.toString()
-                    var income = i.child("income").value.toString().toDouble()
-                    var UID = i.child("uid").value.toString()
-                    var details = i.child("details").value.toString()
+                    val name = i.child("name").value.toString()
+                    val description = i.child("description").value.toString()
+                    val income = i.child("income").value.toString().toDouble()
+                    val UID = i.child("uid").value.toString()
+                    val details = i.child("details").value.toString()
                     list += IncomeItem(income, name, description, UID, details)
                     totalSum += income
                     if (income > 0) posSum += income

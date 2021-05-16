@@ -23,7 +23,6 @@ class AdminMenuActivity : AppCompatActivity() {
             finish()
         }
 
-
         menuButton.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
             startActivity(intent)

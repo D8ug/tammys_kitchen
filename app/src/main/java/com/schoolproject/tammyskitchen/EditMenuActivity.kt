@@ -33,7 +33,7 @@ class EditMenuActivity : AppCompatActivity() {
         mStorageReference = FirebaseStorage.getInstance().reference
 
         // This function is used to get the data from the database
-        var getData = object : ValueEventListener {
+        val getData = object : ValueEventListener {
 
 
             override fun onCancelled(error: DatabaseError) {
@@ -47,11 +47,11 @@ class EditMenuActivity : AppCompatActivity() {
 
                 val list = ArrayList<LiveMenuItem>()
                 for (i in snapshot.children){
-                    var itemName = i.child("itemName").value.toString()
-                    var itemDescription = i.child("itemDescription").value.toString()
-                    var price = i.child("price").value.toString().toInt()
-                    var imageURL = i.child("imageURL").value.toString()
-                    var itemID = i.child("itemID").value.toString()
+                    val itemName = i.child("itemName").value.toString()
+                    val itemDescription = i.child("itemDescription").value.toString()
+                    val price = i.child("price").value.toString().toInt()
+                    val imageURL = i.child("imageURL").value.toString()
+                    val itemID = i.child("itemID").value.toString()
                     list += LiveMenuItem(imageURL, itemName, itemDescription, price, itemID)
                 }
                 val adapter = LiveMenuAdapter(list)

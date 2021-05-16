@@ -1,5 +1,6 @@
 package com.schoolproject.tammyskitchen
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class MenuAdapter(private val menuItemsList: List<MenuItem>) : RecyclerView.Adap
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MenuAdapter.ViewHolder, position: Int) {
         /*
         This function handles all the changes of the MenuItem based on the given parameters after the

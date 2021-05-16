@@ -34,7 +34,7 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    fun signupUser(){
+    private fun signupUser(){
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -65,7 +65,7 @@ class SignupActivity : AppCompatActivity() {
             }
     }
 
-    fun loginGuest(){
+    private fun loginGuest(){
         auth.signInWithEmailAndPassword(resources.getString(R.string.guest_email), resources.getString(R.string.guest_password))
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -88,7 +88,7 @@ class SignupActivity : AppCompatActivity() {
         updateUI(auth.currentUser)
     }
 
-    fun updateUI(user: FirebaseUser?){
+    private fun updateUI(user: FirebaseUser?){
         if (user == null) return
         val intent = Intent(this, MainMenuActivity::class.java)
         Toast.makeText(baseContext, "Welcome${if (auth.currentUser?.displayName== null) "!" else ", ${auth.currentUser?.displayName}"}",

@@ -38,6 +38,7 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
 
         if (auth.currentUser?.uid != resources.getString(R.string.admin_UID)) finish()
 
+        imageUri = Uri.EMPTY
 
         // when the image is clicked, the user can then load an image from his gallery to the activity
         // the preview image then changes to the image that was loaded from the admin's phone - allowing us to
@@ -45,8 +46,8 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
         // ImageView and uploading what's there
         previewImageView.setOnClickListener {
             val intent = Intent()
-            intent.setAction(Intent.ACTION_GET_CONTENT)
-            intent.setType("image/*")
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/*"
             startActivityForResult(intent, mRequestCode)
         }
 
@@ -57,7 +58,7 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
     }
 
     private fun uploadDataToDatabase() {
-        if (imageUri == null){
+        if (imageUri == Uri.EMPTY){
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
             return
         }
@@ -72,7 +73,7 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
         val currentFileID = System.currentTimeMillis().toString()
         val imageNameWithExtension = currentFileID + "." + getFileExtension(imageUri)
 
-        val itemReference =  mStorageReference.child(imageNameWithExtension!!)
+        val itemReference =  mStorageReference.child(imageNameWithExtension)
         itemReference.putFile(imageUri).addOnSuccessListener {
             // When the image is successfully uploaded:
 
@@ -85,9 +86,6 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
                 finish()
             }
 
-
-            //finish()
-
         }.addOnProgressListener {
 
             // When uploading the image it will show the progress bar hence the following code
@@ -98,14 +96,12 @@ class AddNewMenuItemsActivity : AppCompatActivity() {
         }.addOnFailureListener {
 
             // If the image upload fails for some reason, it will log the issue and will toast that the uploading failed
-
             progressBar.visibility = ProgressBar.INVISIBLE
             Log.e("Uploading Error", it.message)
             Toast.makeText(this, "Uploading failed", Toast.LENGTH_LONG).show()
         }
 
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

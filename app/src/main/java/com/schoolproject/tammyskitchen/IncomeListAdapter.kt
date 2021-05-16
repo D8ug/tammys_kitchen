@@ -1,5 +1,6 @@
 package com.schoolproject.tammyskitchen
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +19,7 @@ private lateinit var mDatabaseRef: DatabaseReference
 
 
 class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerView.Adapter<IncomeListAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IncomeListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.income_item, parent, false)
         mDatabaseRef = FirebaseDatabase.getInstance().reference
@@ -61,6 +62,7 @@ class IncomeListAdapter (private val incomeItems: List<IncomeItem>) : RecyclerVi
         mDatabaseRef.removeValue()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = incomeItems[position]
 

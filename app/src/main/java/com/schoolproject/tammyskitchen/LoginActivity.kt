@@ -12,16 +12,22 @@ import kotlinx.android.synthetic.main.activity_signup.*
 
 class LoginActivity() : AppCompatActivity() {
 
+    /* Top level variables */
     private lateinit var auth: FirebaseAuth
 
-
+    /* Base functions for the Activity */
+    // The onCreate func is called when the activity is created
+    // It is used to initialize the Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // receives the credentials of the auth from the FirebaseAuth Instance
         auth = FirebaseAuth.getInstance()
 
+        // interprets the current user based on the auth credentials
         val currentUser = auth.currentUser
+        // checks if an accounts is already logged in
         if(currentUser != null){
             reload()
         }
@@ -29,7 +35,6 @@ class LoginActivity() : AppCompatActivity() {
         signupButton.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
-
         }
 
         loginButton.setOnClickListener {
@@ -41,6 +46,7 @@ class LoginActivity() : AppCompatActivity() {
         }
     }
 
+    // The onStart func is called when the activity is started
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -50,7 +56,9 @@ class LoginActivity() : AppCompatActivity() {
         }
     }
 
-    fun loginGuest(){
+    /* Functions */
+    // Logins the user as guest - used in the login as guest button
+    private fun loginGuest(){
         auth.signInWithEmailAndPassword(resources.getString(R.string.guest_email), resources.getString(R.string.guest_password))
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -73,7 +81,8 @@ class LoginActivity() : AppCompatActivity() {
         reload()
     }
 
-    fun loginUser(){
+    // Tries to login the user with the logins that was inputted by the user
+    private fun loginUser(){
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -109,8 +118,8 @@ class LoginActivity() : AppCompatActivity() {
             }
     }
 
-
-    fun updateUI(user: FirebaseUser?){
+    // Updates the UI based on the current auth
+    private fun updateUI(user: FirebaseUser?){
         if (user == null) {
             // If still not connected to a user
             return
@@ -118,21 +127,21 @@ class LoginActivity() : AppCompatActivity() {
         reload()
     }
 
-
-    fun reload(){
+    // Used to intent the user to a different activity based on the account that was
+    // logged in - shouldn't be called when an account isn't logged in although it will
+    // return and break if no user is signed in
+    private fun reload(){
         if (auth.currentUser == null) {
             // will log for the console in case reload() gets called but no user is connected
             // although, currently it should never get to this part of code if used correctly
             Log.d("reload", "Tried to reload with a user, yet not user is connected")
             return
         }
-        val intent: Intent
-        if (auth.currentUser?.uid == resources.getString(R.string.admin_UID))
-            intent = Intent(this, AdminMenuActivity::class.java)
+        val intent: Intent = if (auth.currentUser?.uid == resources.getString(R.string.admin_UID))
+            Intent(this, AdminMenuActivity::class.java)
         else
-            intent = Intent(this, MainMenuActivity::class.java)
+            Intent(this, MainMenuActivity::class.java)
         startActivity(intent)
         finish()
     }
-
 }
